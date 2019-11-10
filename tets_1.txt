@@ -1,0 +1,16 @@
+import requests # 用session保存cookie
+session = requests.session() '''
+url, data
+'''
+
+loginurl = "http://www.renren.com/PLogin.do"
+
+headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"} # 表单数据
+data = { "email": "18588403840",
+    "password": "Changeme_123"
+} # 模拟登陆，post提交表单数据
+response = session.post(url=loginurl, data=data, headers=headers) print(response.text) print('登录后'*20) response = session.get("http://www.renren.com/965557295/profile") print(response.text) """
+保存cookie
+将cookie对象转化为字典
+"""
+sessionDict = requests.utils.dict_from_cookiejar(session.cookies) with open('session.txt', 'w', encoding='utf-8')as f: f.write(str(sessionDict)) f.flush()
